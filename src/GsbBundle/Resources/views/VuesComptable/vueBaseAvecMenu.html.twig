@@ -1,0 +1,15 @@
+{% extends "GsbBundle::base.html.twig" %}
+{% set visiteur = app.session %}
+{% block menu %}
+    <div class="center" id="nomVisiteur">
+        {{visiteur.get('nom')}} {{visiteur.get('prenom')}} 
+    </div>
+    
+    <table class="center" id="tableMenu">
+        <tr>
+            <td onClick="window.location.replace('suivreFicheFrais0-0')" class="lienMenu">Suivres fiches</td>
+            {#<td onClick="window.location.replace('suivrePaiement')" class="lienMenu">Suivre paiement</td>#}
+            <td onClick="confirmDeco()" class="lienMenu">Déconnexion</td>
+        </tr>
+    </table>
+{% endblock %}

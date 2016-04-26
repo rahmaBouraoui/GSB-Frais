@@ -1,0 +1,83 @@
+{% extends "GsbBundle:VuesVisiteur:vueBaseAvecMenu.html.twig" %}
+
+{% set varBoucle = 1 %}
+{% block body%} 
+    
+    <div class="divStyle">
+        <h1 style="text-align: center; padding-top: 15px">{{titre}}</h1>
+        <div style="text-align: center; margin-top: -10px">Dernière modif : {{derniereModif|date('d/m/Y')}}</div>
+
+        <h2 style="padding-top: 20px">Frais Forfait</h2>
+        {{form_start(formFrais)}}
+        <table class="tableFicheFrais" align="center">
+            <tr>
+                <td>{{form_label(formFrais.repasMidi)}}</td>
+                <td>{{form_label(formFrais.nuitee)}}</td>
+                <td>{{form_label(formFrais.etape)}}</td>
+                <td>{{form_label(formFrais.km)}}</td>
+            </tr>
+            <tr>
+                <td>{{form_widget(formFrais.repasMidi)}}</td>
+                <td>{{form_widget(formFrais.nuitee)}}</td>
+                <td>{{form_widget(formFrais.etape)}}</td>
+                <td>{{form_widget(formFrais.km)}}</td>
+                <td>{{form_widget(formFrais.annuler)}}</td>
+                <td>{{form_widget(formFrais.miseAJour)}}</td>
+            </tr>
+        </table>
+        {{form_end(formFrais)}}
+        <hr>
+        
+        <h2 style="padding-top: 20px">Hors Forfait</h2>
+        {{form_start(formHorsForfait)}}
+        <table id="tableFraisHorsForfaits" align="center" style="width: 70%">
+            <tr>
+                <th style="padding-left: 10px; width: 150px" colspan="4">Date</th>
+                <th style="padding-left: 10px">Libellé</th>
+                <th style="padding-left: 10px">Montant</th>
+            </tr>
+            <tr>
+                <td style="width: 70px;padding-left: 10px">{{form_widget(formHorsForfait.jour)}}</td>
+                <td style="padding-left: 2px">/</td>
+                <td style="width: 65px;padding-left: 2px">{{form_widget(formHorsForfait.mois)}}</td>
+                <td style="padding-left: 4px; width: 60px ">/{{anneeCourant}}</td>
+                <td>{{form_widget(formHorsForfait.libelle)}}</td>
+                <td style="width: 20%">{{form_widget(formHorsForfait.montant)}}</td>
+                <td style="padding-left: 15px; width: 100px">{{form_widget(formHorsForfait.ajouter)}}</td>
+            </tr>
+            <tr><td style="padding-top: 10px;"></td></tr>
+            {% for unFrais in fraisHorsForfaits %}
+                {% if varBoucle is divisibleby(2) %}
+                    <tr class="trStyle" style="background-color: #999">
+                {% else %}
+                    <tr class="trStyle" style="background-color: #bbb">
+                {% endif %}
+                    <td class="tdStyle" style="padding-left: 10px" colspan="4">{{unFrais.dateFrais|date('d/m/Y')}}</td>
+                    <td class="tdStyle" style="padding-left: 10px">{{unFrais.libelle}}</td>
+                    <td class="tdStyle" style="padding-right: 10px; text-align: right">{{unFrais.montant}}</td>
+                    <td style="text-align: center"><img src="{{ asset('bundles/gsb/images/icone_supprimer.gif')}}" onCLick="supprimerHorsForfait({{unFrais.idLigneFraisHorsForfait}},'{{unFrais.libelle}}', '{{unFrais.montant}}', '{{unFrais.dateFrais|date('d/m/Y')}}', {{idFiche}})" title="Supprimer l'hors forfait {{unFrais.libelle}} de {{unFrais.montant}} euros"></td>
+                </tr>
+                {% set varBoucle = varBoucle + 1 %}
+            {% endfor %}
+        </table>
+        {{form_end(formHorsForfait)}}
+        <hr>
+        
+        <h2 style="padding-top: 20px">Hors Classification</h2>
+        {{form_start(formHosrClassification)}}
+        <table id="tableHorsClassification" align="center">
+            <tr>
+                <th style="padding-left: 10px">{{form_label(formHosrClassification.nombreJustificatif)}}</th>
+                <th style="padding-left: 10px">{{form_label(formHosrClassification.montantTotal)}}</th>
+            </tr>
+            <tr>
+                <td style="padding-left: 10px">{{form_widget(formHosrClassification.nombreJustificatif)}}</td>
+                <td style="padding-left: 10px">{{form_widget(formHosrClassification.montantTotal)}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" style="padding-top: 10px">{{form_widget(formHosrClassification.modifier)}}</td>
+            </tr>
+        </table>
+        {{form_end(formHosrClassification)}}
+    </div>
+{% endblock %}

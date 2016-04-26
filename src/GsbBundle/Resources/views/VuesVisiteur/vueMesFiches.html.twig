@@ -1,0 +1,76 @@
+{% extends "GsbBundle:VuesVisiteur:vueBaseAvecMenu.html.twig" %}
+
+{% set varBoucle = 1 %}
+{% block body%} 
+    <div class="divStyle">
+        <h1 style="padding-top: 15px"></h1>
+        {{form_start(form)}}
+        <div class="center" style="width: 140px">
+            {{ form_widget(form.datesPossibles) }}
+        </div>
+        {{form_end(form)}}
+        
+        <div>
+            <h2 align="center">Frais Forfait</h2>
+            <table class="center" id="tableFraisForfait">
+                <tr> 
+                    <th style="text-align:center">Repas midi</th>
+                    <th style="text-align:center">Nuitée</th>
+                    <th style="text-align:center">Etape</th>
+                    <th style="text-align:center">Kilomètre</th>
+                    <th style="text-align:center">Situation</th>
+                    <th style="text-align:center">Date</th>
+                </tr>
+                <tr><td style="padding-top:6px"></td></tr>
+                <tr class="trStyle" style="background-color: #aaa">
+                    <td class="tdStyle">{{fraisForfaits.nbRepas}}</td>
+                    <td class="tdStyle">{{fraisForfaits.nbNuit}}</td>
+                    <td class="tdStyle">{{fraisForfaits.nbEtape}}</td>
+                    <td class="tdStyle">{{fraisForfaits.nbKm}}</td>
+                    <td class="tdStyle">{{fraisForfaits.etatFraisForfait}}</td>
+                    <td>{{ficheFrais.dateModif|date('d/m/Y')}}</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <h2 align="center">Frais Hors Forfait</h2>
+            <table class="center" id="tableFraisHorsForfait">
+                <tr>
+                    <th width="150px" style="padding-left: 10px; width: 100px">Date</th>
+                    <th style="padding-left: 10px; width: 30%">Libelle</th>
+                    <th width="170px" style="padding-right: 10px; text-align: right">Montant</th>
+                    <th width="150px" style="text-align: right; padding-right: 10px; width: 25%">Situation</th>
+                </tr>
+                <tr><td style="padding-top:6px"></td></tr>
+                {% for unHorsForfait in lesHorsForfait %}
+                    {% if varBoucle is divisibleby(2) %}
+                        <tr class="trStyle" style="background-color: #999">
+                    {% else %}
+                        <tr class="trStyle" style="background-color: #bbb">
+                    {% endif %}
+                        <td class="tdStyle" style="padding-left: 10px">{{unHorsForfait.dateFrais|date('d/m/Y')}}</td>
+                        <td class="tdStyle" style="padding-left: 10px">{{unHorsForfait.libelle}}</td>
+                        <td class="tdStyle" style="padding-right: 10px; text-align: right">{{unHorsForfait.montant}}</td>
+                        <td style="text-align:right; padding-right: 10px">{{unHorsForfait.idEtat.libelle}}</td>
+                    </tr>
+                {% set varBoucle = varBoucle + 1 %}
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            <h2 align="center">Hors Classification</h2>
+            <table class="center" id="horsClassification">
+                <tr>
+                    <th style="padding-left: 10px">Justificatifs</th>
+                    <th style="padding-left: 10px">Montant</th>
+                </tr>
+                <tr><td style="padding-top:6px"></td></tr>
+                <tr style="background-color: #bbb">
+                    <td class="tdStyle" style="padding-left: 10px; text-align: center">{{ficheFrais.nbJustificatifs}}</td>
+                    <td style="padding-right: 10px; text-align: right">{{ficheFrais.montantValide}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

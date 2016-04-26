@@ -1,0 +1,35 @@
+{% extends "GsbBundle::base.html.twig" %}
+        {% block body%} 
+            {{form_start(form)}}
+            <div id="divConnexion">
+                {% if etatConnexion == 'Erreur' %}
+                    <div class="erreurConnexion" id="erreurConnexion" >
+                        Echec de connexion
+                    </div>
+                {% endif %}
+                <table class="test" align="center">
+                    <tr>
+                        <tr>
+                            <td>{{ form_label(form.login) }}</td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">{{ form_widget(form.login) }}</td>
+                        </tr>
+                    </tr>
+                    <tr>
+                        <tr>
+                            <td class="espacement">{{ form_label(form.motDePasse) }}</td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">{{ form_widget(form.motDePasse) }}</td>
+                        </tr>
+                    </tr>
+                    <tr>
+                        <td class="espacement">{{ form_widget(form.annuler) }}</td><td></td>
+                        <td class="espacement">{{ form_widget(form.connexion) }}</td>
+                    </tr>
+                </table>
+            </div>
+            {{form_end(form)}}
+                
+        {% endblock %}

@@ -1,0 +1,11 @@
+services:
+    dbFrais:
+        class: PDO
+        pdo.attr_errmode: 3
+        pdo.errmode_exception: 2
+        pdo.options:
+            %pdo.attr_errmode%: %pdo.errmode_exception%
+        arguments:
+            dbFrais.dsn: mysql:host=localhost;dbname=GsbFrais
+            dbFrais.username: root
+            dbFrais.password: azerty  

@@ -1,0 +1,44 @@
+gsb_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: GsbBundle:Default:index }
+
+#Connexion
+gsb_connexion:
+    path: /Connexion
+    defaults: { _controller: GsbBundle:Connexion:vueConnexion }
+   
+gsb_deconnexion:
+    path: /deconnexion
+    defaults: { _controller: GsbBundle:Connexion:deconnexion }   
+
+#Visiteur   
+supprimerHorsForfait:
+    path: /supprimerHorsForfait{idHorsForfait}-{idFiche}
+    defaults: { _controller: GsbBundle:ControlleurVisiteur/SaisieFiche:supprimerHorsFofrait }
+    
+ficheFrais:
+    path: /saisieFiche
+    defaults: { _controller: GsbBundle:ControlleurVisiteur/SaisieFiche:index }
+    
+mesFiches:
+    path: /mesFiches
+    defaults: { _controller: GsbBundle:ControlleurVisiteur/Consulter:index }
+
+#Comptable
+suivreFicheFrais:
+    path: /suivreFicheFrais{idVisiteur}-{mois}
+    defaults: { _controller: GsbBundle:ControlleurComptable/SuivreFiche:index }
+
+validerFicheFrais:
+    path: /validerFiche{idFiche}-{idVisiteur}-{mois}
+    defaults: { _controller: GsbBundle:ControlleurComptable/SuivreFiche:validerFiche }
+
+modifierHorsForfait:
+    path: /modifierHorsForfait{idLigne}+-{libelle}+-{montant}+-{idEtat}+-{idVisiteur}+-{mois}
+    defaults: { _controller: GsbBundle:ControlleurComptable/SuivreFiche:modifierHorsForfait }  
+    
+suppHorsForfait:
+    path: /comptableSuppHorsForfait{idLigne}-{idVisiteur}-{mois}-{idFiche}
+    defaults: { _controller: GsbBundle:ControlleurComptable/SuivreFiche:refuserHorsForfait } 
+    
+    
